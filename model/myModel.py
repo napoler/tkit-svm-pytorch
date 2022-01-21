@@ -49,6 +49,7 @@ class myModel(pl.LightningModule):
         self.save_hyperparameters()
 
         self.model = nn.Linear(2, 1)
+        # self.sm=nn.Sigmoid()
 
     def forward(self, X, Y, **kwargs):
         X = torch.FloatTensor(X)
@@ -65,7 +66,8 @@ class myModel(pl.LightningModule):
         #     print(y)
         x = X
         y = Y
-        x = self.model(x).squeeze()
+        x = self.model(x)
+        # x=self.sm(x)
         weight = self.model.weight.squeeze()
 
         loss = self.loss_fc(x, y)
