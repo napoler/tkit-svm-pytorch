@@ -31,7 +31,6 @@ class myModel(pl.LightningModule):
     EncDec
     使用transformer实现
     """
-
     def __init__(self, learning_rate=5e-5,
                  T_max=5,
                  c=0.01,
