@@ -12,7 +12,8 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from sklearn.datasets.samples_generator import make_blobs
+# from sklearn.datasets.samples_generator import make_blobs
+from sklearn.datasets import make_blobs
 
 
 def train(X, Y, model, args):
@@ -84,6 +85,7 @@ if __name__ == "__main__":
     print(args)
 
     X, Y = make_blobs(n_samples=500, centers=2, random_state=0, cluster_std=0.4)
+    print(X)
     X = (X - X.mean()) / X.std()
     Y[np.where(Y == 0)] = -1
 
