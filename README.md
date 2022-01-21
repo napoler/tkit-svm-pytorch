@@ -1,9 +1,6 @@
-# Support Vector Machines
+# LogisticRegression
 
-* Support Vector Machines (SVMs) with Linear Kernel
-* Stochastic Gradient Descent (SGD)
-
-实现svm
+实现LogisticRegression
 
 ## Requirements
  

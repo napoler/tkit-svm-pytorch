@@ -26,7 +26,7 @@ from torchmetrics.functional import precision_recall, accuracy, f1
 # from transformers import BertTokenizer
 
 
-class myModel(pl.LightningModule):
+class LogisticRegression(pl.LightningModule):
     """
     EncDec
     使用transformer实现
@@ -49,34 +49,20 @@ class myModel(pl.LightningModule):
         self.save_hyperparameters()
 
         self.model = nn.Linear(2, 1)
-        # self.sm=nn.Sigmoid()
 
     def forward(self, X, Y, **kwargs):
-        X = torch.FloatTensor(X)
-        Y = torch.FloatTensor(Y)
-        # N = len(Y)
-        # print(X, Y)
+        x = torch.FloatTensor(X)
+        y = torch.FloatTensor(Y)
 
-        # perm = torch.randperm(N)
-
-        # for i in range(0, N, self.hparams.batch_size):
-        #     x = X[perm[i : i + self.hparams.batch_size]].to(self.device)
-        #     y = Y[perm[i : i + self.hparams.batch_size]].to(self.device)
-        #     print(x)
-        #     print(y)
-        x = X
-        y = Y
-        x = self.model(x)
-        # x=self.sm(x)
-        weight = self.model.weight.squeeze()
+        x = self.model(x).squeeze()
 
         loss = self.loss_fc(x, y)
         return x, loss
 
     def loss_fc(self, x, y):
-        weight = self.model.weight.squeeze()
-        loss = torch.mean(torch.clamp(1 - y * x, min=0))
-        loss += self.hparams.c * (weight.t() @ weight) / 2.0
+        # 交叉熵损失函数
+        loss_fc = nn.BCEWithLogitsLoss()
+        loss = loss_fc(x, y)
         return loss
 
     def training_step(self, batch, batch_idx):
