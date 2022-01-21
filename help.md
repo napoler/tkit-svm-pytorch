@@ -12,7 +12,6 @@
 # 运行训练 cpu
 
 > python trainer.py fit --config config/base_config.yaml
->
 
 # 日志loss
 
